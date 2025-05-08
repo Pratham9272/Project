@@ -1,0 +1,86 @@
+npm install -g @angular/cli@latest
+
+ng new partc
+
+cd partc
+
+appcomponent.html:
+<h1>{{title}}</h1>
+<input type="text" #name placeholder="Enter your name" name="Name"> <br>
+<input type="text" #address placeholder="Enter your address" name="Address"> <br>
+<input type="text" #contact placeholder="Enter your contact" name="Contact"> <br>
+<input type="email" #email placeholder="Enter your email" name="Email"> <br>
+<input type="password" #pwd placeholder="Enter your password" name="password"> <br>
+<button (click)="getValue(name.value, address.value, contact.value, email.value)">Register</button>
+<h1>Your details</h1>
+<p>Name: {{displayname}}</p>
+<p>Address: {{displayadd}}</p>
+<p>Contact: {{displaycont}}</p>
+<p>Email: {{displaymail}}</p>
+
+
+
+app.component.ts
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+@Component({
+selector: 'app-root',
+imports: [RouterOutlet],
+templateUrl: './app.component.html',
+styleUrl: './app.component.css'
+})
+export class AppComponent {
+title = 'Register Form';
+displayname='';
+displayadd='';
+displaycont='';
+displaymail=''
+getValue(name:string, address:string, contact:string, email:string){
+this.displayname=name;
+this.displayadd=address;
+this.displaycont=contact;
+this.displaymail=email;
+}
+}
+
+
+app.component.css
+/* Style for the entire page */
+body {
+font-family: Arial, sans-serif;
+background-color: #f4f4f4;
+margin: 0;
+padding: 0;
+}
+/* Style for the form container */
+.form-container {
+width: 50%;
+margin: auto;
+background: white;
+padding: 20px;
+box-shadow: 0px 0px 10px gray;
+border-radius: 10px;
+}
+/* Input fields */
+input {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+/* Submit button */
+button {
+background: #28a745;
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+button:hover {
+background: #218838;
+}
+
+
+ng serve

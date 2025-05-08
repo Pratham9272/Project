@@ -1,0 +1,83 @@
+index.html:
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>College Mobile App</title>
+    <!-- Load jQuery Mobile CSS & JS -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .hero { background: #2196F3; color: white; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<!-- ======= HOME PAGE ======= -->
+<div data-role="page" id="home">
+    <div data-role="header">
+        <h1>College App</h1>
+    </div>
+    
+    <div data-role="main" class="ui-content">
+        <div class="hero">
+            <h2>Welcome!</h2>
+            <p>Start your learning journey today.</p>
+        </div>
+        
+        <ul data-role="listview" data-inset="true">
+            <li><a href="#courses">View Courses</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- ======= COURSES PAGE ======= -->
+<div data-role="page" id="courses">
+    <div data-role="header">
+        <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Back</a>
+        <h1>Our Courses</h1>
+    </div>
+    
+    <div data-role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true">
+            <li>Computer Science</li>
+            <li>Business</li>
+            <li>Engineering</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ======= CONTACT PAGE ======= -->
+<div data-role="page" id="contact">
+    <div data-role="header">
+        <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Back</a>
+        <h1>Contact Us</h1>
+    </div>
+    
+    <div data-role="main" class="ui-content">
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+            
+            <button class="ui-btn ui-btn-b">Submit</button>
+        </form>
+        
+        <p>Email: contact@college.edu</p>
+        <p>Phone: 123-456-7890</p>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+after this goto inspect -> Toggle device to mobile

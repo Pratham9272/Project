@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Demo Project</title>
+</head>
+<body>
+    <h1>Hello GitHub!</h1>
+    <p>This is my first Git commit.</p>
+</body>
+</html>
+
+git init
+git add .
+git commit -m "First commit: Added dashboard, login, and signup pages"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/REPO-NAME.git
+git push -u origin main

@@ -1,0 +1,22 @@
+docker -v
+
+docker pull OpenJDK
+
+docker run -it --name my-java-container openjdk jshell
+
+
+In jshell
+System.out.println("Hello from Docker JShell!");
+
+int x = 15;
+int y = 25;
+
+System.out.println("Sum: " + (x + y));
+
+/exit
+
+
+Open a new terminal
+docker images
+
+docker ps -a

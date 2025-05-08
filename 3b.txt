@@ -1,0 +1,144 @@
+npm init -y
+
+npm install express mongoose body-parser cors dotenv
+
+node-mongo-crud/
+├── .env             (Environment variables)
+├── server.js        (Main server file)
+├── models/
+│   └── User.js      (MongoDB model)
+├── routes/
+│   └── userRoutes.js (API routes)
+
+
+
+.env:
+MONGODB_URI=mongodb://127.0.0.1:27017/userdb
+PORT=5000
+
+server.js:
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const userRoutes = require('./routes/userRoutes');
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Routes
+app.use('/api/users', userRoutes);
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
+
+models/User.js:
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  age: { type: Number }
+});
+
+module.exports = mongoose.model('User', userSchema);
+
+
+
+routes/userRoutes.js:
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User');
+
+// CREATE (POST)
+router.post('/', async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// READ ALL (GET)
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// READ ONE (GET)
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// UPDATE (PUT)
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// DELETE (DELETE)
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+    res.json({ message: 'User deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
+node server.js
+
+
+
+Test on Postman:
+
+
+Method	Endpoint	Description
+POST	/api/users	Create new user    http://localhost:5000/api/users
+GET	/api/users	Get all users      http://localhost:5000/api/users
+GET	/api/users/:id	Get single user    http://localhost:5000/api/users/:id
+PUT	/api/users/:id	Update user        http://localhost:5000/api/users/:id
+DELETE	/api/users/:id	Delete user        http://localhost:5000/api/users/:id
+
+
